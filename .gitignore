@@ -1,0 +1,21 @@
+# Environment — never commit
+.env
+.env.*
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Expo
+mobile/.expo/
+mobile/ios/
+mobile/android/
+
+
+# macOS
+.DS_Store
+
+.claude
