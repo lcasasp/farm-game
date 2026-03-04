@@ -1,26 +1,11 @@
 import 'dotenv/config'
 import http from 'http'
-import express from 'express'
-import cors from 'cors'
+import { createApp } from './app'
 import { runMigrations } from './db'
 import { initWebSocketServer } from './services/realtime'
 import { initCron } from './services/cron'
-import nudgeRouter from './routes/nudge'
-import messagesRouter from './routes/messages'
-import eventsRouter from './routes/events'
-import gameStateRouter from './routes/gameState'
 
-const app = express()
-app.use(cors())
-app.use(express.json())
-
-app.get('/health', (_req, res) => res.json({ ok: true }))
-
-app.use('/api', nudgeRouter)
-app.use('/api', messagesRouter)
-app.use('/api', eventsRouter)
-app.use('/api', gameStateRouter)
-
+const app = createApp()
 const httpServer = http.createServer(app)
 initWebSocketServer(httpServer)
 

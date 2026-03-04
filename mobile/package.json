@@ -6,21 +6,33 @@
   "scripts": {
     "start": "expo start",
     "ios": "expo run:ios",
-    "build:preview": "eas build --platform ios --profile preview"
+    "build:preview": "eas build --platform ios --profile preview",
+    "test": "jest"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^1.23.1",
+    "@react-native-async-storage/async-storage": "1.23.1",
     "expo": "~52.0.0",
+    "expo-asset": "~11.0.4",
     "expo-constants": "~17.0.0",
     "expo-notifications": "~0.29.0",
     "expo-status-bar": "~2.0.0",
     "react": "18.3.1",
-    "react-native": "0.76.5",
+    "react-native": "0.76.9",
     "react-native-confetti-cannon": "^1.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
+    "@testing-library/react-native": "^12.4.0",
     "@types/react": "~18.3.0",
+    "jest-expo": "~52.0.0",
+    "react-test-renderer": "18.3.1",
     "typescript": "^5.3.3"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "testMatch": ["**/__tests__/**/*.test.{ts,tsx}"],
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*)"
+    ]
   }
 }

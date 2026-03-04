@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
   View,
   Text,
@@ -9,40 +9,13 @@ import {
   SafeAreaView,
   Alert,
 } from 'react-native'
-import { NudgeButton } from '../components/NudgeButton'
-import { MessageDisplay } from '../components/MessageDisplay'
-import { useWebSocket } from '../hooks/useWebSocket'
 import { useRole } from '../context/RoleContext'
-import { getMessages } from '../lib/api'
 
 export function UserScreen() {
   const { attemptAdminUnlock } = useRole()
   const [tapCount, setTapCount] = useState(0)
   const [showUnlock, setShowUnlock] = useState(false)
   const [unlockCode, setUnlockCode] = useState('')
-  const [latestMessage, setLatestMessage] = useState<{
-    content: string
-    created_at: string
-  } | null>(null)
-
-  useEffect(() => {
-    getMessages()
-      .then((msgs) => {
-        if (msgs.length > 0) {
-          setLatestMessage({ content: msgs[0].content, created_at: msgs[0].created_at })
-        }
-      })
-      .catch(console.error)
-  }, [])
-
-  useWebSocket((msg) => {
-    if (msg.type === 'message') {
-      setLatestMessage({
-        content: msg.content as string,
-        created_at: new Date().toISOString(),
-      })
-    }
-  })
 
   function handleTitleTap() {
     const next = tapCount + 1
@@ -69,14 +42,6 @@ export function UserScreen() {
       <TouchableOpacity onPress={handleTitleTap} activeOpacity={1}>
         <Text style={styles.title}>bunny farm 🐰</Text>
       </TouchableOpacity>
-
-      <View style={styles.body}>
-        <MessageDisplay
-          content={latestMessage?.content ?? null}
-          timestamp={latestMessage?.created_at ?? null}
-        />
-        <NudgeButton />
-      </View>
 
       <Modal visible={showUnlock} transparent animationType="slide">
         <View style={styles.modalBackdrop}>
@@ -112,22 +77,15 @@ export function UserScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
     alignItems: 'center',
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#ff6b9d',
+    color: '#fff',
     marginTop: 24,
     paddingHorizontal: 24,
-  },
-  body: {
-    flex: 1,
-    width: '100%',
-    paddingHorizontal: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   modalBackdrop: {
     flex: 1,
