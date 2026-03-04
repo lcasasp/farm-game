@@ -6,7 +6,7 @@ export async function sendPush(
   token: string,
   title: string,
   body: string,
-  data?: object
+  data?: Record<string, unknown>
 ) {
   if (!Expo.isExpoPushToken(token)) {
     console.warn(`Invalid Expo push token: ${token}`)

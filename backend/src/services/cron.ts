@@ -9,7 +9,7 @@ export function initCron() {
       const { rows } = await db.query<{
         id: string
         event_type: string
-        payload: object
+        payload: Record<string, unknown>
       }>(
         `SELECT id, event_type, payload
          FROM events

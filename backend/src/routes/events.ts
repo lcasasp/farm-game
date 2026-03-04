@@ -40,7 +40,7 @@ router.post('/event', requireAdmin, async (req, res) => {
           token,
           event_type,
           (payload as { message?: string }).message ?? 'New event!',
-          payload
+          payload as Record<string, unknown>
         )
       }
 
