@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cp src/db/migrate.sql dist/db/migrate.sql",
     "start": "node dist/index.js",
     "dev": "tsx watch src/index.ts"
   },
